@@ -1,22 +1,57 @@
 "use client";
 
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Axios } from "axios";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const Signup = () => {
+  const router = useRouter();
   const [user, setUser] = React.useState({
     email: "",
     password: "",
     username: "",
   });
 
-  const onSignup = () => {};
+  const [loading, setLoading] = React.useState(false);
+  const [buttonDisabled, setButtonDisabled] = React.useState(true);
+
+  const onSignup = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.post("/api/users/signup", user);
+      
+      if(response.data.success){
+        console.log("Signup success", response.data);
+        router.push('/login')
+      }else{
+        console.log("Signup error:", response.data.error);
+      }
+
+
+    } catch (error: any) {
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (
+      user.email.length > 0 &&
+      user.username.length > 0 &&
+      user.password.length > 0
+    ) {
+      setButtonDisabled(false);
+    } else {
+      setButtonDisabled(true);
+    }
+  }, [user]);
 
   return (
     <div className="flex flex-col items-center justify-center py-20">
-      <h1 className="text-3xl mb-6">Signup</h1>
+      <h1 className="text-3xl mb-6">{loading ? "Processing" : "Sign Up"}</h1>
       <form className="w-full max-w-sm">
         <div className="mb-6">
           <label htmlFor="username" className="block text-white">
@@ -24,7 +59,7 @@ const Signup = () => {
           </label>
           <input
             id="username"
-            className="form-input mt-1 block w-full rounded-md border-gray-300"
+            className="form-input mt-1 block w-full rounded-md border-gray-300 text-black"
             type="text"
             value={user.username}
             onChange={(e) => setUser({ ...user, username: e.target.value })}
@@ -38,7 +73,7 @@ const Signup = () => {
           </label>
           <input
             id="email"
-            className="form-input mt-1 block w-full rounded-md border-gray-300"
+            className="form-input mt-1 block w-full rounded-md border-gray-300 text-black"
             type="email"
             value={user.email}
             onChange={(e) => setUser({ ...user, email: e.target.value })}
@@ -52,7 +87,7 @@ const Signup = () => {
           </label>
           <input
             id="password"
-            className="form-input mt-1 block w-full rounded-md border-gray-300"
+            className="form-input mt-1 block w-full rounded-md border-gray-300 text-black"
             type="password"
             value={user.password}
             onChange={(e) => setUser({ ...user, password: e.target.value })}
@@ -63,7 +98,7 @@ const Signup = () => {
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           onClick={onSignup}
         >
-          Sign Up
+          {buttonDisabled ? "No Signup" : "SignUp"}
         </button>
 
         <Link href="/login" className="px-8">
