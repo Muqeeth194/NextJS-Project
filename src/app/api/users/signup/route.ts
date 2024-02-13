@@ -10,6 +10,7 @@ export async function POST(request: NextRequest) {
     const reqBody = await request.json();
     const { username, email, password } = reqBody;
 
+
     //check if user already exists
     const user = await DBModelUser.findOne({ email });
 

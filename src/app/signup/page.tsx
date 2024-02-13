@@ -17,7 +17,10 @@ const Signup = () => {
   const [loading, setLoading] = React.useState(false);
   const [buttonDisabled, setButtonDisabled] = React.useState(true);
 
-  const onSignup = async () => {
+  const onSignup = async (event:any) => {
+    
+    event.preventDefault(); // Prevent default refresh behavior
+
     try {
       setLoading(true);
       const response = await axios.post("/api/users/signup", user);
