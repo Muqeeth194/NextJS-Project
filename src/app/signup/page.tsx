@@ -18,8 +18,8 @@ const Signup = () => {
   const [buttonDisabled, setButtonDisabled] = React.useState(true);
 
   const onSignup = async (event:any) => {
-    
-    event.preventDefault(); // Prevent default refresh behavior
+
+    event.preventDefault(); // Since a form has been used we need to Prevent default refresh behavior
 
     try {
       setLoading(true);
@@ -27,6 +27,7 @@ const Signup = () => {
       
       if(response.data.success){
         console.log("Signup success", response.data);
+        toast.success(`${response.data.savedUser.username} is registered`)
         router.push('/login')
       }else{
         console.log("Signup error:", response.data.error);

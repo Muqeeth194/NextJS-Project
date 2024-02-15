@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import { set } from "mongoose";
 
 const Login = () => {
+  const router = useRouter()
   const [loading, setLoading] = React.useState(false)
   const [buttonDisabled, setButtonDisabled] = React.useState(true)
   const [user, setUser] = React.useState({
@@ -25,6 +26,8 @@ const Login = () => {
       if(response.data.success){
         console.log("user logged in: ", response.data.message);
         toast.success('User logged in');
+        router.push('/profile')
+
       }else{
         console.log("Invalid Details: ", response.data.message);
         toast.error(response.data.message)
