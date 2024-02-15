@@ -4,6 +4,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import NextNProgress from 'nextjs-progressbar';
 
 const Profile = () => {
   const router = useRouter()
@@ -39,6 +40,8 @@ const Profile = () => {
   }
 
   return (
+    <>
+    <NextNProgress />
     <div className="flex flex-col items-center justify-center py-20">
       <h1 className="text-3xl  mb-6">Profile</h1>
       <p className="text-2xl  mb-6">Profile Section</p>
@@ -60,6 +63,7 @@ const Profile = () => {
       </button>
 
     </div>
+    </>
   );
 };
 

@@ -16,15 +16,23 @@ export const POST = async (request: NextRequest) => {
 
     // check if the user exists
     if (!user) {
-      return NextResponse.json({ message: "User does not exist" });
+      return NextResponse.json({ message: "User does not exist", success: false});
+    }
+
+    // Check if the user's email address is verified or not.
+
+    if(!user.isVerifeid){
+      return NextResponse.json({ message: "Email is not verified", success: false });
     }
 
     // Check if the entered password is valid or not
-    const isValidUser = await bcryptjs.compare(password, user.password);
+    const isPasswordCorrect = await bcryptjs.compare(password, user.password);
 
-    if (!isValidUser) {
-      return NextResponse.json({ message: "Details are invalid" });
+    if (!isPasswordCorrect) {
+      return NextResponse.json({ message: "Password is invalid" });
     }
+
+
 
     // create a token data
     const tokenData = {
