@@ -71,7 +71,7 @@ const Login = () => {
           />
         </div>
 
-        <div className="mb-6">
+        <div className="mb-8">
           <label htmlFor="password" className="block text-white">
             Password
           </label>
@@ -83,9 +83,13 @@ const Login = () => {
             onChange={(e) => setUser({ ...user, password: e.target.value })}
             placeholder="Password"
           />
+          <div className="relative w-full">
+            <Link href="/login/forgotpassword" className="absolute inset-y-0 right-0 text-red-500 text-sm py-2" >Forgot Password?</Link>
+          </div>
         </div>
+
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-6  rounded focus:outline-none focus:shadow-outline"
           onClick={onLogin}
         >
           {buttonDisabled ? "No Login" : "Login" }
