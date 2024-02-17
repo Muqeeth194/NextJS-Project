@@ -8,14 +8,16 @@ export function middleware(request: NextRequest) {
     const path = request.nextUrl.pathname
 
     // check if the path is a public path (login or signup) or a protected path (profile or /)
-    const isPublicPath = path === '/login' || path === '/signup'
+    const publicPaths = ['/', '/login', '/signup', '/resetpassword', '/verifyemail', '/login/forgotpassword'];
 
     // Get the token from the cookies
     const token = request.cookies.get("token")?.value || ""
 
+    const isPublicPath = publicPaths.includes(path)
+
     // route the user based on the public path and the token
     if(isPublicPath && token){
-        return NextResponse.redirect(new URL('/', request.nextUrl))
+        return NextResponse.redirect(new URL('/profile', request.nextUrl))
     }
 
     if(!isPublicPath && !token){
@@ -30,6 +32,9 @@ export const config = {
     '/login',
     '/signup',
     '/profile/:path*',
-    '/verifyemail'
+    '/verifyemail',
+    '/login/forgotpassword',
+    '/resetpassword'
+
   ],
 }

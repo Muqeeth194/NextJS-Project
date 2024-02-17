@@ -26,7 +26,7 @@ const Login = () => {
       if(response.data.success){
         console.log("user logged in: ", response.data.message);
         toast.success('User logged in');
-        router.push('/')
+        router.push('/profile')
 
       }else{
         console.log("Invalid Details: ", response.data.message);
