@@ -5,7 +5,9 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios  from "axios";
 import toast from "react-hot-toast";
-import { set } from "mongoose";
+import type { RootState } from "@/lib/store";
+import { useDispatch, useSelector } from "react-redux";
+import { changeState } from "@/lib/navbar/navbarSlice";
 
 const Login = () => {
   const router = useRouter()
@@ -16,6 +18,9 @@ const Login = () => {
     password: "",
 
   });
+
+  const dispatch = useDispatch()
+  const navbarState = useSelector((state: RootState)=> state.navbar.value)
 
   const onLogin = async (event:any) => {
     event.preventDefault(); // Prevent default refresh behavior
@@ -52,8 +57,14 @@ const Login = () => {
     }
   }, [user])
 
+  useEffect(()=>{
+    dispatch(changeState("public"))
+  }, [])
+
+  // console.log(navbarState);
+
   return (
-    <div className="flex flex-col items-center justify-center py-20">
+    <div className="h-[40rem] w-full bg-black flex flex-col items-center justify-center overflow-hidden rounded-md">
       <h1 className="text-3xl mb-6">{loading ? "Processing" : "Log In" }</h1>
       <form className="w-full max-w-sm">
 
@@ -99,7 +110,8 @@ const Login = () => {
           Visit SignUp Page
         </Link>
       </form>
-    </div>
+      </div>
+
   );
 };
 

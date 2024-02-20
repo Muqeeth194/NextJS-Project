@@ -54,7 +54,7 @@ const Signup = () => {
   }, [user]);
 
   return (
-    <div className="flex flex-col items-center justify-center py-20">
+    <div className="h-[40rem] w-full bg-black flex flex-col items-center justify-center overflow-hidden rounded-md">
       <h1 className="text-3xl mb-6">{loading ? "Processing" : "Sign Up"}</h1>
       <form className="w-full max-w-sm">
         <div className="mb-6">
