@@ -27,7 +27,7 @@ const Signup = () => {
       
       if(response.data.success){
         console.log("Signup success", response.data);
-        toast.success(`${response.data.savedUser.username} is registered`)
+        toast.success(`Please check your email to follow the email verification process.`)
         router.push('/login')
       }else{
         console.log("Signup error:", response.data.error);
