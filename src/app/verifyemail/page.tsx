@@ -13,19 +13,17 @@ const VerifyEmail = () => {
 
   const verifyUserEmail = async () => {
     try {
-      const response = await axios.post('api/users/verifyemail', {tokenFromEmail: token});
-      if (response.data.success) {
-        toast.success(response.data.message);
-        setVerified(true);
+      if (token.length > 0) {
+        const response = await axios.post("api/users/verifyemail", {
+          tokenFromEmail: token,
+        });
+        if (response.data.success) {
+          toast.success(response.data.message);
+          setVerified(true);
+        }
       }
     } catch (error: any) {
       toast.error(error.message);
-    }
-  };
-
-  const handleVerify = () => {
-    if (token.length > 0) {
-      verifyUserEmail();
     }
   };
 
@@ -47,7 +45,7 @@ const VerifyEmail = () => {
       ) : (
         <button
           className="bg-orange-500 hover:bg-orange-700 mt-4 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          onClick={handleVerify}
+          onClick={verifyUserEmail}
         >
           Verify Your Email
         </button>
