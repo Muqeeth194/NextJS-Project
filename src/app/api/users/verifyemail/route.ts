@@ -9,7 +9,7 @@ export const POST = async(request: NextRequest) => {
     try {
         const { tokenFromEmail } = await request.json()
 
-        console.log(tokenFromEmail);
+        // console.log(tokenFromEmail);
         
 
         // get the user based on the token and whose expiration date is greater than the current date
@@ -22,7 +22,10 @@ export const POST = async(request: NextRequest) => {
 
         if(!user){
             return NextResponse.json(
-                {message: "Invalid Token from the email"}
+                {
+                    message: "Invalid Token from the email",
+                    success: false
+                }
             )
         }
 

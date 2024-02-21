@@ -14,9 +14,7 @@ function LoggedInNavbar({ className }: { className?: string }) {
 
   const logout = async () => {
     try {
-      const response = await axios.get(
-        `${process.env.DOMAIN}api/users/logout`
-      );
+      const response = await axios.get('/api/users/logout');
 
       //   console.log(response.data);
 

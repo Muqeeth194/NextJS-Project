@@ -17,9 +17,15 @@ const VerifyEmail = () => {
         const response = await axios.post("api/users/verifyemail", {
           tokenFromEmail: token,
         });
+
+        console.log(response.data);
+        
         if (response.data.success) {
           toast.success(response.data.message);
           setVerified(true);
+
+        }else{
+          toast.error(response.data.message);
         }
       }
     } catch (error: any) {
@@ -39,8 +45,8 @@ const VerifyEmail = () => {
 
       {verified ? (
         <div>
-          <p className="text-2xl  mb-6">Email Verified</p>
-          <Link href="/login">Login</Link>
+          {/* <h1 className="text-2xl  mb-6">Email Verified</h1> */}
+            <p>Email is verified. Please navigate to Login page</p>
         </div>
       ) : (
         <button
